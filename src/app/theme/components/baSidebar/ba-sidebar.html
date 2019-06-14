@@ -19,6 +19,7 @@
       <ul ng-if="::item.subMenu" class="al-sidebar-sublist"
           ng-class="{'slide-right': item.slideRight}"
           ba-ui-sref-toggling-submenu>
+          <span>{{ ::subitem.title }}</span>
         <li ng-repeat="subitem in ::item.subMenu" ng-class="::{'with-sub-menu': subitem.subMenu}" ui-sref-active="selected"
             ba-sidebar-toggling-item="subitem" class="ba-sidebar-sublist-item">
           <a ng-mouseenter="hoverItem($event, item)" ng-if="::subitem.subMenu" ba-ui-sref-toggler

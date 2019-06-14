@@ -5,13 +5,13 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.dashboard', [])
+  angular.module('BlurAdmin.pages.dashboard', ['ngAnimate','ngSanitize','ui.bootstrap'])
       .config(routeConfig);
 
   /** @ngInject */
   function routeConfig($stateProvider) {
     $stateProvider
-        .state('dashboard', {
+        .state('main.dashboard', {
           url: '/dashboard',
           templateUrl: 'app/pages/dashboard/dashboard.html',
           title: 'Dashboard',
@@ -19,6 +19,7 @@
             icon: 'ion-android-home',
             order: 0,
           },
+          authenticate:true
         });
   }
 

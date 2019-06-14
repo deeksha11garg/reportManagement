@@ -7,8 +7,12 @@
 
   angular.module('BlurAdmin.pages', [
     'ui.router',
-
     'BlurAdmin.pages.dashboard',
+    'BlurAdmin.pages.authSignIn',
+    'BlurAdmin.pages.main',
+    'BlurAdmin.pages.config',
+    'BlurAdmin.pages.services',
+    'BlurAdmin.pages.delivery-del',
    
     
   ])
@@ -16,7 +20,7 @@
 
   /** @ngInject */
   function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/authSignIn');
 
     // baSidebarServiceProvider.addStaticItem({
     //   title: 'Pages',
