@@ -1,6 +1,7 @@
-<div class="page-top clearfix" scroll-position="scrolled" max-height="50" ng-class="{'scrolled': scrolled}">
-  <a href="#/dashboard" class="al-logo clearfix"><span>Audit</span>Trail</a>
-  <a href class="collapse-menu-link ion-navicon" ba-sidebar-toggle-menu></a>
+<div style="padding-left: 15px;padding-right: 40px" class="page-top clearfix" scroll-position="scrolled" max-height="50" ng-class="{'scrolled': scrolled}">
+    <a href style="margin-left:0px;padding-left: 0px" class="collapse-menu-link ion-navicon" ba-sidebar-toggle-menu></a>
+  <a style="margin-left:0px;padding-left: 15px" href="" class="al-logo clearfix"><span>Audit</span>Trail</a>
+  
 
   <!-- <div class="search">
     <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
@@ -9,15 +10,8 @@
 
   <div class="user-profile clearfix">
     <div class="al-user-profile" uib-dropdown>
-      <a uib-dropdown-toggle class="profile-toggle-link">
-        <!-- <img ng-src="{{::( 'Nasta' | profilePicture )}}"> -->
-      </a>
-      <ul  class="top-dropdown-menu profile-dropdown" uib-dropdown-menu>
-        <li><i class="dropdown-arr"></i></li>
-        <li><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
-        <li><a href><i class="fa fa-cog"></i>Settings</a></li>
-        <li><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
-      </ul>
+     
+      <button style="margin-top:6px;color: white;margin-right:30px" ng-click = "logout()" type="button" class="btn btn-default btn-with-icon btn-m">Logout</button>
     </div>
     <msg-center></msg-center>
   </div>

@@ -12,7 +12,12 @@
     'BlurAdmin.pages.main',
     'BlurAdmin.pages.config',
     'BlurAdmin.pages.services',
-    'BlurAdmin.pages.delivery-del',
+    'BlurAdmin.pages.viewData',
+    'BlurAdmin.pages.editData',
+    'BlurAdmin.pages.admin',
+    'BlurAdmin.pages.reports'
+    
+
    
     
   ])
