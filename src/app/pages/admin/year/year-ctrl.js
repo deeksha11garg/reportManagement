@@ -4,20 +4,20 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.user', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.year', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
     .config(routeConfig)
-    .controller('user-ctrl', TablesPageCtrl)
+    .controller('year-ctrl', TablesPageCtrl)
     .constant('_',
       window._
     );
   /** @ngInject */
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('main.admin.user', {
-        url: '/user',
-        templateUrl: 'app/pages/admin/user/user.html',
-        title: 'User',
-        controller: 'user-ctrl',
+      .state('main.admin.year', {
+        url: '/year',
+        templateUrl: 'app/pages/admin/year/year.html',
+        title: 'Year',
+        controller: 'year-ctrl',
         sidebarMeta: {
           icon: 'ion-android-send',
           order: 0,
@@ -28,45 +28,41 @@
 
  
   /** @ngInject */
-  function TablesPageCtrl($scope,$rootScope, $http, $filter,$state , editableOptions, editableThemes, userService, $uibModal, $log, _, toasterService) {
-   $scope.stationIncharge=["yes","no"];
+  function TablesPageCtrl($scope,$rootScope, $http, $filter,$state , editableOptions, editableThemes, yearService, $uibModal, $log, _, toasterService) {
+    
     $scope.init=function(){
-      $scope.user = {};
-      $scope.getUser();
+      $scope.year = {};
+      $scope.getYear();
 
     }
-   
-   
-   
+
     $scope.addNewRecord = function(){
-      $scope.user.push({
-        location:"",
-        empID:"",
-        stationIncharge:"",
-counter:"0"
-        
-      });
+      $scope.year.yearData.push("");
     }
 
-    $scope.getUser= function(){
+    $scope.getYear= function(){
      
-      userService.getUserData().then(
+      yearService.getYearData(JSON.stringify({
+        name : "year"
+      })).then(
         function(data) { 
-          $scope.user= JSON.parse(data.data.data);
+          $scope.year.yearData = JSON.parse(data.data.data)[0].data;
+          $scope.year.yearID = JSON.parse(data.data.data)[0]._id;
+          $scope.year.yearName = JSON.parse(data.data.data)[0].name;
         },
         function(msg) {
         });
     }
 
-
-    
-
-    $scope.editUserData = function(data, index){
-     
-      userService.editUserData(JSON.stringify({
-          _id: data.userID,
-          name: $scope.user.userName,
-          data: $scope.user.userData,
+    $scope.editYearData = function(data, index,counter){
+      if(counter==0)
+      $scope.year.yearData[index]=data;
+      else
+      $scope.year.yearData.splice(index, 1);
+      yearService.editYearData(JSON.stringify({
+          _id: $scope.year.yearID,
+          name: $scope.year.yearName,
+          data: $scope.year.yearData,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();
@@ -76,14 +72,14 @@ counter:"0"
     }
  
     
-    
-    
-    
-    
+
     editableOptions.theme = 'bs3';
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
     editableThemes['bs3'].cancelTpl = '<button type="button" ng-click="$form.$cancel()" class="btn btn-default btn-with-icon"><i class="ion-close-round"></i></button>';
   
+
+
+
 
   }
 })();

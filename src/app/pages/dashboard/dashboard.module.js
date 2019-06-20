@@ -14,7 +14,7 @@
         .state('main.dashboard', {
           url: '/dashboard',
           templateUrl: 'app/pages/dashboard/dashboard.html',
-          title: 'Dashboard',
+          title: 'My Entries',
           sidebarMeta: {
             icon: 'ion-ios-home-outline',
             order: 0,

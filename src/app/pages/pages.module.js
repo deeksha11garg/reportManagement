@@ -14,9 +14,9 @@
     'BlurAdmin.pages.services',
     'BlurAdmin.pages.viewData',
     'BlurAdmin.pages.editData',
-    'BlurAdmin.pages.admin',
-    'BlurAdmin.pages.reports'
-    
+    'BlurAdmin.pages.reports',
+    'BlurAdmin.pages.auditsDone',
+    'BlurAdmin.pages.admin'
 
    
     

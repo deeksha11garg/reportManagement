@@ -1,10 +1,11 @@
-angular.module('BlurAdmin.pages.admin.user').service('userService', function ($http,$q) {
+angular.module('BlurAdmin.pages.admin.auditType').service('auditTypeService', function ($http,$q) {
     this.message = '';
-    
-    this.getUserData = function(reqJSON){
+
+
+    this.getAuditTypeData = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getUserRecord',reqJSON,{
+        $http.post('http://localhost:3006/getMiscellaneousRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -21,7 +22,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
        return deferred.promise;
     }
 
-    this.editUserData = function(reqJSON){
+    this.editAuditTypeData = function(reqJSON){
         var deferred = $q.defer();
         $http.post('http://localhost:3006/editMiscellaneousRecord',reqJSON,{
             headers : {
@@ -36,8 +37,8 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
           error(function (msg, status) {
             deferred.reject(msg);
         });
+    
         return deferred.promise;
     }
-    
     
 });
