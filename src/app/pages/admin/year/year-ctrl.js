@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.year', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.year', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'smart-table'])
     .config(routeConfig)
     .controller('year-ctrl', TablesPageCtrl)
     .constant('_',
@@ -32,12 +32,15 @@
     
     $scope.init=function(){
       $scope.year = {};
+      $scope.rowCollection=[];
       $scope.getYear();
 
     }
 
     $scope.addNewRecord = function(){
-      $scope.year.yearData.push("");
+      $scope.year.yearData.push({
+        year:""
+      });
     }
 
     $scope.getYear= function(){
@@ -47,6 +50,7 @@
       })).then(
         function(data) { 
           $scope.year.yearData = JSON.parse(data.data.data)[0].data;
+          $scope.rowCollection = JSON.parse(data.data.data)[0].data;
           $scope.year.yearID = JSON.parse(data.data.data)[0]._id;
           $scope.year.yearName = JSON.parse(data.data.data)[0].name;
         },

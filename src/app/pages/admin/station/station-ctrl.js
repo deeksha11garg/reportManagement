@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.station', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.station', ['ngAnimate', 'ngSanitize', 'ui.bootstrap' , 'smart-table'])
     .config(routeConfig)
     .controller('station-ctrl', TablesPageCtrl)
     .constant('_',
@@ -32,14 +32,19 @@
   
     $scope.init=function(){
       $scope.station = {};
+      $scope.rowCollection=[];
       $scope.getStation();
-
+      $scope.count=0;
+    
+     
     }
    
    
    
     $scope.addNewRecord = function(){
-      $scope.station.stationData.push("");
+      $scope.station.stationData.push({
+        station:""
+      });
     }
 
     $scope.getStation= function(){
@@ -49,6 +54,7 @@
       })).then(
         function(data) { 
           $scope.station.stationData = JSON.parse(data.data.data)[0].data;
+          $scope.rowCollection = JSON.parse(data.data.data)[0].data;
           $scope.station.stationID = JSON.parse(data.data.data)[0]._id;
           $scope.station.stationName = JSON.parse(data.data.data)[0].name;
         },

@@ -9,8 +9,33 @@
 
 
     /** @ngInject */
-    function dashboardCtrl($scope, $http, $uibModal) {
+    function dashboardCtrl($scope,$rootScope, $http, $filter,$state , editableOptions, editableThemes, dashboardService, $uibModal, $log, _, toasterService) {
+
+        $scope.init=function(){
+           
+            $scope.rowCollection=[];
+           
+            $scope.getauditsDone();
+      
+          }
+         
+
+        
        
+        
+    $scope.getauditsDone= function(){
+     
+        dashboardService.getauditsDone().then(
+          function(data) { 
+            $scope.auditsDone= JSON.parse(data.data.data);
+            $scope.rowCollection = JSON.parse(data.data.data);
+  
+         
+  
+          },
+          function(msg) {
+          });
+      }
 
            
     }

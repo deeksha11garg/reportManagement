@@ -4,7 +4,7 @@
   angular.module('BlurAdmin.pages.authSignIn')
     .controller('authSignInCtrl', authSignInCtrl);
 
-    authSignInCtrl.$inject = ['$scope', 'localStorage', '$state'];
+    authSignInCtrl.$inject = ['$scope', 'localStorage', '$state','authservice'];
   /** @ngInject */
   function authSignInCtrl($scope, localStorage, $state, authservice, $q) {
       var vm = this;
@@ -19,13 +19,13 @@
           user: vm.user,
           password: vm.password
         };
-        $state.go('main.dashboard');
-        // authservice.authenticate(credentials.user,credentials.password).then(function(data) {
-        //   localStorage.setObject('dataUser', credentials);
-        //   $state.go('main.dashboard'); 
-        // }, function() { 
-        //   $state.go('404');
-        // });
+     
+         authservice.authenticate(credentials.user,credentials.password).then(function(data) {
+          localStorage.setObject('dataUser', credentials);
+          $state.go('main.dashboard'); 
+        }, function() { 
+          $state.go('404');
+        });
       }
     }
   })();

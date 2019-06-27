@@ -1,50 +1,41 @@
-// (function () {
-//     'use strict';
+(function () {
+    'use strict';
 
-//     angular
-//         .module('BlurAdmin.pages.authSignIn')
-//         .factory('authservice', authservice);
+    angular
+        .module('BlurAdmin.pages.authSignIn')
+        .factory('authservice', authservice);
 
-//         authservice.$inject = ['$http', '$q' , '$rootScope','toasterService'];
+        authservice.$inject = ['$http', '$q' , '$rootScope','toasterService'];
 
-//      function authservice($http, $q, $rootScope, toasterService) {
-//         var service = {
-//             authenticate: authenticate
-//         };
-//         return service;
+     function authservice($http, $q, $rootScope, toasterService) {
+        var service = {
+            authenticate: authenticate
+        };
+        return service;
 
-//         function authenticate(username, password) {
-//             var defer = $q.defer();
-//             $http({
-//                 method: 'POST',
-//                 url: 'http://10.14.151.179:3006/authenticate',
-//                 data: JSON.stringify({username : username, password:password}),
-//             }).success(function (data, status, headers) {
-//                 if(data.msg === "success"){
-//                     localStorage.setItem('username', username);
-//                     if(data.isAdmin){
-//                         $rootScope.isAdmin = true;
-//                         localStorage.setItem('isAdmin', true);
-//                     } 
-//                     if(data.isShiftOfficer){
-//                         $rootScope.isShiftOfficer = true;
-//                         localStorage.setItem('isShiftOfficer', true);
-//                     }   
-//                     if(data.mathura){
-//                         $rootScope.isMathura = true;
-//                         localStorage.setItem('isMathura', true);
-//                     }  
-//                     defer.resolve(data);
-//                 }
-//                 else{
-//                     toasterService.openErrorToast("User Authentication Failed. Please enter correct credential!");
-//                     defer.reject("err");
-//                 }
-//             }).error(function (err) {
-//                 toasterService.openErrorToast("Internal Server Error! Please try again.");
-//                 defer.reject(err);
-//             });
-//             return defer.promise;
-//         }
-//     }
-// })();
+        function authenticate(username, password) {
+            var defer = $q.defer();
+            $http({
+                method: 'POST',
+                url: 'http://localhost:3006/authenticate',
+                data: JSON.stringify({username : username, password:password}),
+            }).success(function (data, status, headers) {
+                if(data.msg === "success"){
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('isAdmin', data.isAdmin);
+                    localStorage.setItem('location', data.location);
+                    localStorage.setItem('stationIncharge', data.stationIncharge);
+                    defer.resolve(data);
+                }
+                else{
+                   // toasterService.openErrorToast("User Authentication Failed. Please enter correct credential!");
+                    defer.reject("err");
+                }
+            }).error(function (err) {
+               // toasterService.openErrorToast("Internal Server Error! Please try again.");
+                defer.reject(err);
+            });
+            return defer.promise;
+        }
+    }
+})();

@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.auditType', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.auditType', ['ngAnimate', 'ngSanitize', 'ui.bootstrap','smart-table'])
     .config(routeConfig)
     .controller('auditType-ctrl', TablesPageCtrl)
     .constant('_',
@@ -32,12 +32,15 @@
    
     $scope.init=function(){
       $scope.auditType = {};
+      $scope.rowCollection=[];
       $scope.getAuditType();
 
     }
 
     $scope.addNewRecord = function(){
-      $scope.auditType.auditTypeData.push("");
+      $scope.auditType.auditTypeData.push({
+        auditType:""
+      });
     }
 
     $scope.getAuditType= function(){
@@ -47,6 +50,7 @@
       })).then(
         function(data) { 
           $scope.auditType.auditTypeData = JSON.parse(data.data.data)[0].data;
+          $scope.rowCollection = JSON.parse(data.data.data)[0].data;
           $scope.auditType.auditTypeID = JSON.parse(data.data.data)[0]._id;
           $scope.auditType.auditTypeName = JSON.parse(data.data.data)[0].name;
         },

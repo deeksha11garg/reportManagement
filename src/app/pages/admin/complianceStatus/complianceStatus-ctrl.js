@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.complianceStatus', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.complianceStatus', ['ngAnimate', 'ngSanitize', 'ui.bootstrap','smart-table'])
     .config(routeConfig)
     .controller('complianceStatus-ctrl', TablesPageCtrl)
     .constant('_',
@@ -32,12 +32,15 @@
    
     $scope.init=function(){
       $scope.complianceStatus = {};
+      $scope.rowCollection=[];
       $scope.getComplianceStatus();
 
     }
 
     $scope.addNewRecord = function(){
-      $scope.complianceStatus.complianceStatusData.push("");
+      $scope.complianceStatus.complianceStatusData.push({
+        complianceStatus:""
+      });
     }
 
     $scope.getComplianceStatus= function(){
@@ -47,6 +50,7 @@
       })).then(
         function(data) { 
           $scope.complianceStatus.complianceStatusData = JSON.parse(data.data.data)[0].data;
+          $scope.rowCollection = JSON.parse(data.data.data)[0].data;
           $scope.complianceStatus.complianceStatusID = JSON.parse(data.data.data)[0]._id;
           $scope.complianceStatus.complianceStatusName = JSON.parse(data.data.data)[0].name;
         },

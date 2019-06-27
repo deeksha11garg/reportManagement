@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  angular.module('BlurAdmin.pages.admin.subStation', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+  angular.module('BlurAdmin.pages.admin.subStation', ['ngAnimate', 'ngSanitize', 'ui.bootstrap','smart-table'])
     .config(routeConfig)
     .controller('subStation-ctrl', TablesPageCtrl)
     .constant('_',
@@ -32,6 +32,9 @@
    
     $scope.init=function(){
       $scope.subStation = {};
+      $scope.station=[];
+      
+ $scope.rowCollection=[];
       $scope.getSubStation();
     }
 
@@ -49,6 +52,7 @@
       })).then(
         function(data) { 
           $scope.subStation.subStationData = JSON.parse(data.data.data)[0].data;
+          $scope.rowCollection =JSON.parse(data.data.data)[0].data;
           $scope.subStation.subStationID = JSON.parse(data.data.data)[0]._id;
           $scope.subStation.subStationName = JSON.parse(data.data.data)[0].name;
 
@@ -61,10 +65,18 @@
             function(msg) {
             });
 
+            
         },
         function(msg) {
         });
     }
+
+
+    // $scope.rowCollection = [];
+
+    // for (id; id < 5; id++) {
+    //     $scope.rowCollection.push(generateRandomItem(id));
+    // }
 
 
     

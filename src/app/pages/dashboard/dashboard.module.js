@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.dashboard', ['ngAnimate','ngSanitize','ui.bootstrap'])
+  angular.module('BlurAdmin.pages.dashboard', ['ngAnimate','ngSanitize','ui.bootstrap','smart-table'])
       .config(routeConfig);
 
   /** @ngInject */

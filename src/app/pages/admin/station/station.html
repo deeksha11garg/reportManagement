@@ -2,13 +2,22 @@
 
         <div ng-show = "station.stationData &&  station.stationData.length == 0">
           <div class="alert">
-              <h4 style="color:red">
-                <strong>Sorry!</strong> No records found.
-              </h4>
+              <div class="form-group select-page-size-wrap ">
+                  <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+                  ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
+          </select>
+                  <h4 style="color:red">
+                    <strong>Sorry!</strong> No records found.
+                  </h4>
+              </div>
           </div>
         </div> 
-       
+    
       <div style="background-size: 1679px 944px; background-position: 0px -79px; color: black">
+
+          
+              
+                
 
         <div class = "col-md-6" style="padding:0px">
             <div class="panel-body"  style="padding:0px"> 
@@ -21,15 +30,21 @@
     
                 
                
-                     <table style="margin : 0px;color: black" class="table table-bordered table-hover table-condensed">
+                     <table style="width: 400px"st-table="station.stationData" st-safe-src="rowCollection" style="margin : 0px;color: black" class="table">
                         <thead>
                            
-                            <tr>
-                              <th>Sr. No</th>
-                              <th>Station</th>
-                              <th>Actions</th>   
+                            <tr >
+                              <th style="width: 30px">Sr. No</th>
+                              <th style="width: 120px">Station</th>
+                              <th style="width: 200px">Actions</th>   
                                    </tr>
-                           
+                                   <tr>
+                                      <th></th>
+                                      <th><input st-search="station" placeholder="Search station" class="input-sm form-control search-input"
+                                                 type="search"/></th>
+                                      
+                                      <th></th>
+                                    </tr>
                         </thead>
                         <tbody>
                           <tr ng-repeat="data in station.stationData track by $index" class="editable-row">
@@ -38,9 +53,9 @@
                                    {{ $index + 1 || '-' }} 
                                   </span>
                                 </td>
-                            <td>    
-                              <span editable-text="data" e-name="data" e-form="rowform" e-required>
-                              {{ data || '-' }}
+                            <td class="table-id">    
+                              <span editable-text="data.station" e-name="station" e-form="rowform" e-required>
+                              {{ data.station || '-' }}
                               </span>
                             </td>
                             
@@ -55,18 +70,31 @@
                               </form>
                               <div class="buttons" ng-show="!rowform.$visible">
                                 <button class="btn btn-info editable-table-button btn-xs" ng-click="rowform.$show();">Edit</button>
-                                <button class="btn btn-danger editable-table-button btn-xs" ng-click="
-                                
-                                
-                                editStationData(data,$index,1);">Delete</button>
+                                <button class="btn btn-danger editable-table-button btn-xs" ng-click=" editStationData(data,$index,1);">Delete</button>
                               </div>
                             </td>
                           </tr>
                            
-                          </tbody>        
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                <td colspan="6" class="text-center">
+                                  <div st-pagination="" st-items-by-page="7" st-displayed-pages="100"></div>
+                                </td>
+                              </tr>
+                              </tfoot>        
                       </table>
                   
         </div>
         </div>
       </div> 
+
+
+
+     
+        
+         
+          
+      
+
  </div>

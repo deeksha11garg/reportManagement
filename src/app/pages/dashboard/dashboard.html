@@ -1,82 +1,133 @@
-<!-- <dashboard-pie-chart></dashboard-pie-chart> -->
+<div ng-controller = "dashboard-ctrl" ng-init="init()">
 
-<div class="row">
-  <!-- <div class="col-lg-6 col-md-12 col-sm-12"
-       ba-panel
-       ba-panel-title="Acquisition Channels"
-       ba-panel-class="medium-panel traffic-panel">
-    <traffic-chart></traffic-chart>
-  </div> -->
-  <!-- <div class="col-lg-6 col-md-12 col-sm-12"
-       ba-panel
-       ba-panel-title="Users by Country"
-       ba-panel-class="medium-panel">
-    <dashboard-map></dashboard-map>
-  </div> -->
-</div>
-<!-- <div>
-<button type="button" class="btn btn-default btn-icon"><i class="ion-plus"></i></button>
-    Add new record</div>-->
-
-    <table class="table" st-table="smartTableData">
-      <thead>
-      <tr class="sortable ">
-        <th class="table-id" st-sort="id" st-sort-default="true">#</th>
-        <th st-sort="firstName">First Name</th>
-        <th st-sort="lastName">Last Name</th>
-        <th st-sort="username">Username</th>
-        <th st-sort="email">Email</th>
-        <th st-sort="age">Age</th>
-      </tr>
-      </thead>
-      </table> 
-
-
-
-
-<!-- <div class="row">
-  <div class="col-xlg-9 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="row"> -->
-      <!-- <div class="col-xlg-8 col-lg-12 col-md-12 col-sm-7 col-xs-12"
-           ba-panel
-           ba-panel-title="Revenue"
-           ba-panel-class="medium-panel">
-        <dashboard-line-chart></dashboard-line-chart>
-      </div> -->
-      <!-- <div class="col-xlg-4 col-lg-12 col-md-12 col-sm-5 col-xs-12"
-           ba-panel
-           ba-panel-class="popular-app medium-panel">
-        <popular-app></popular-app>
-      </div> -->
+  <div ng-show = "entries.entriesData &&  entries.entriesData.length == 0">
+    <div class="alert">
+      <div class="form-group select-page-size-wrap ">
+        <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+        ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
+</select>
+        <h4 style="color:red">
+          <strong style="white-space: nowrap">Sorry!</strong> No records found.
+        </h4>
     </div>
-  </div>
-  <!-- <div class="col-xlg-3 col-lg-6 col-md-6 col-sm-12 col-xs-12"
-       ba-panel
-       ba-panel-title="Feed"
-       ba-panel-class="large-panel with-scroll feed-panel">
-    <blur-feed></blur-feed>
-  </div> -->
-</div>
-
-<div class="row shift-up">
-  <!-- <div class="col-xlg-3 col-lg-6 col-md-6 col-xs-12"
-       ba-panel
-       ba-panel-title="To Do List"
-       ba-panel-class="xmedium-panel feed-comply-panel with-scroll todo-panel">
-    <dashboard-todo></dashboard-todo>
-  </div> -->
-  <!-- <div class="col-xlg-6 col-lg-6 col-md-6 col-xs-12"
-       ba-panel
-       ba-panel-title="Calendar"
-       ba-panel-class="xmedium-panel feed-comply-panel with-scroll calendar-panel">
-    <dashboard-calendar></dashboard-calendar>
-  </div> -->
-</div>
-
-<!--<div class="row">
-  <div class="col-lg-4 col-sm-6 col-xs-12">
-    <div ba-panel ba-panel-title="Weather" ba-panel-class="medium-panel with-scroll">
-      <blur-weather forecast="5"></blur-weather>
     </div>
+  </div> 
+ 
+<div style="background-size: 1679px 950px; background-position: 0px -79px; color: black">
+
+  <div class = "col-md-6" style="padding:0px">
+      <div class="panel-body"  style="padding:0px"> 
+          <!-- <div class = "row" >
+            <div style="margin-bottom: 20px;margin-top: 10px">
+              <button type="button" ng-click = "addNewRecord()" class="btn btn-default btn-icon"><i class="ion-plus"></i></button> 
+                Add New Record
+            </div>
+          </div>   -->
+
+          
+         
+               <table  style="width: 950px" st-table="auditsDone" st-safe-src="rowCollection" style="margin : 0px;color: black" class="table">
+                  <thead>
+                     
+                      <tr>
+                        <th  style="width: 30px">Sr. No</th>
+                          <th  style="width: 150px">Audit Type</th>
+                          <th style="width: 100px">Year</th>
+                          <th  style="width: 150px">Station</th>
+                          <th  style="width: 150px">Sub-Station</th>
+                         <th style="width: 150px">Start Date</th>
+                          <th style="width: 150px">End Date</th>
+                        
+                      <th ng-hide = "audits.auditsDoneData &&  auditsDone.auditsDoneData.length == 0">Actions</th>
+                       
+                        
+                             </tr>
+                             <tr>
+                              <th></th>
+                              <th><input st-search="auditType" placeholder="audit type " class="input-sm form-control search-input"
+                                type="search"/></th>
+                                <th><input st-search="year" placeholder="year " class="input-sm form-control search-input"
+                                  type="search"/></th>
+                                  <th><input st-search="station" placeholder="station " class="input-sm form-control search-input"
+                                    type="search"/></th>
+                                    <th><input st-search="subStation" placeholder="sub-station " class="input-sm form-control search-input"
+                                      type="search"/></th>
+                                  <th></th>
+                                  <th></th>
+                            </tr>
+                   
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in auditsDone track by $index" class="editable-row">
+                        <td>    
+                            <span>
+                             {{ $index + 1 || '-' }} 
+                            </span>
+                          </td>
+                      <td>    
+                        <span editable-text="data.auditType" e-name="auditType" e-form="rowform" e-required>
+                        {{ data.auditType || '-' }}
+                        </span>
+                      </td>
+                      <td>    
+                        <span editable-text="data.year" e-name="year" e-form="rowform" >
+                        {{ data.year || '-' }}
+                        </span>
+                      </td>
+                      <td>    
+                        <span editable-text="data.station" e-name="station" e-form="rowform" >
+                        {{ data.station || '-' }}
+                        </span>
+                      </td>
+                      <td>    
+                        <span editable-text="data.subStation" e-name="subStation" e-form="rowform" >
+                        {{ data.subStation || '-' }}
+                        </span>
+                      </td>
+                      <td style="width: 200px" >    
+                          <span>
+                           {{ data.from |  date : "mediumDate" || '-' }} 
+                          </span>
+                        </td>
+                        <td style="width: 200px">    
+                            <span>
+                             {{ data.to |  date : "mediumDate" || '-' }} 
+                            </span>
+                          </td>
+                      <!-- <td>    
+                        <span editable-select="data.stationIncharge" e-name="stationIncharge" e-form="rowform" e-selectpicker e-ng-options="stationIncharge for stationIncharge in stationIncharge">
+                        {{ data.stationIncharge || '-' }}
+                        </span>
+                      </td> -->
+                      <!-- <td>
+                        <form editable-form name="rowform" onaftersave = " editauditsDoneData(data,$index)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == data">
+                          <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                            Save
+                          </button>
+                          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-warning editable-table-button btn-xs">
+                            Cancel
+                          </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible && insert">
+                          <button class="btn btn-info editable-table-button btn-xs" ng-click="rowform.$show();">Add</button>
+                         <button class="btn btn-danger editable-table-button btn-xs" ng-click="deletauditsDoneData(data,$index);">Delete</button> -->
+                        </div>
+                      </td> 
+                    </tr>
+                     
+                    </tbody>   
+                    <tfoot>
+                        <tr>
+                          <td colspan="8" class="text-center">
+                            <div st-pagination="" st-items-by-page="7" st-displayed-pages="100"></div>
+                          </td>
+                        </tr>
+                        </tfoot>        
+                  
+                  
+                </table>
+            
   </div>
-</div>-->
+  </div>
+</div> 
+</div>

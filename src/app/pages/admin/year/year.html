@@ -2,9 +2,14 @@
 
      <div ng-show = "year.yearData &&  year.yearData.length == 0">
         <div class="alert">
-            <h4 style="color:red">
-              <strong>Sorry!</strong> No records found.
-            </h4>
+            <div class="form-group select-page-size-wrap ">
+                <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+                ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
+        </select>
+                <h4 style="color:red">
+                  <strong>Sorry!</strong> No records found.
+                </h4>
+            </div>
         </div>
       </div>  
       
@@ -21,15 +26,22 @@
   
               
              
-                   <table style="margin : 0px;color: black" class="table table-bordered table-hover table-condensed">
+                   <table style="width: 400px"st-table="year.yearData" st-safe-src="rowCollection" style="margin : 0px;color: black"  class="table">
                       <thead>
                          
                           <tr>
-                            <th>Sr. No</th>
+                            <th style="width: 30px">Sr. No</th>
                             <th>Year</th>
-                            <th>Actions</th>
+                            <th style="width: 200px">Actions</th>
                            
                                  </tr>
+                                 <tr>
+                                    <th></th>
+                                    <th><input st-search="year" placeholder="Search year" class="input-sm form-control search-input"
+                                               type="search"/></th>
+                                    
+                                    <th></th>
+                                  </tr>
                          
                       </thead>
                       <tbody>
@@ -40,8 +52,8 @@
                                   </span>
                                 </td>
                             <td>    
-                              <span editable-text="data" e-name="data" e-form="rowform" e-required>
-                              {{ data || '-' }}
+                              <span editable-text="data.year" e-name="year" e-form="rowform" e-required>
+                              {{ data.year || '-' }}
                               </span>
                             </td>
                             
@@ -61,7 +73,15 @@
                             </td>
                           </tr>
                            
-                          </tbody>        
+                          </tbody>   
+                          
+                          <tfoot>
+                              <tr>
+                                <td colspan="6" class="text-center">
+                                  <div st-pagination="" st-items-by-page="7" st-displayed-pages="100"></div>
+                                </td>
+                              </tr>
+                              </tfoot>    
                       </table>
                   
         </div>

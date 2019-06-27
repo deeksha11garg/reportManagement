@@ -154,94 +154,213 @@ app.route('/editMiscellaneousRecord')
         })
     });
     
-    
-    
 
-// app.route('/authenticate')
-//     .post(function(req, res) {
+
+
+    app.route('/editUserRecord')
+    .post(function(req, res) {
         
-//         ldapAuthenticate(req.body.username, req.body.password, res)
-//     });
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            req.body._id = new ObjectID.createFromHexString(req.body._id.toString());
+            database.db('auditTrail').collection('user').updateOne({
+                "_id": req.body._id
+            }, {
+                $set: req.body
+            }, function(err, result) {
+                
+                res.send(
+                    (err === null) ? {
+                        msg: 'success'
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+        })
+    });
 
-// ldapAuthenticate = function(username, password, res) {
-//     // res.send({
-//     //     "msg": "success",
-//     //     "isAdmin": true
-//     // })    
-//     ldapAuthenticate = function(username, password, res) {
-//         // res.send({
-//         //     "msg": "success",
-//         //     "isAdmin": true
-//         // })    
-//         config.ad.authenticate("IOC\\" + username, password, function(err, auth) {
-//             if (auth || password == "ioc1234") 
-//             {
-//                 config.ad.isUserMemberOf(username, 'MATHURA_OPERATIONS_DASHBOARD_ADMIN', function(err, isMemberMathura) 
-//                 {
-//                      if (err) 
-//                      {
-//                          return;
-//                      }
-//                      if(isMemberMathura)
-//                      {
-//                         res.send
-//                         ({
-//                             "msg": "success",
-//                             "isAdmin": false,
-//                             "isShiftOfficer": true,
-//                             "mathura":true
-//                         }) 
-//                      }
-//                     else
-//                     {
+
+
+
+    app.route('/deleteUserRecord')
+    .post(function(req, res) {
+        
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            req.body._id = new ObjectID.createFromHexString(req.body._id.toString());
+            database.db('auditTrail').collection('user').deleteOne(req.body, function(err, result) {
+                
+                res.send(
+                    (err === null) ? {
+                        msg: 'success'
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+        })
+    });
+
+
+    app.route('/addUserRecord')
+    .post(function(req, res) {
+        
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+                database.db('auditTrail').collection('user').insertOne(req.body, function(err, result) {
+                
+                res.send(
+                    (err === null) ? {
+                        msg: 'success'
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+        })
+    });
     
-//                         config.ad.isUserMemberOf(username, 'NRPL:DAILY_REPORT_BIJWASAN', function(err, isMember) 
-//                         {
-//                                 if (err) 
-//                                 {
-//                                     return;
-//                                 }
-//                                 if (isMember) 
-//                                 {
-//                                         config.ad.isUserMemberOf(username, 'BIJWASAN OPERATION ADMIN', function(err, isMemberAdmin) 
-//                             {
-//                                 if (err) 
-//                                 {
-//                                     return;
-//                                 }
-//                                 config.ad.isUserMemberOf(username, 'BIJWASAN SHIFT OFFICERS OPERATION', function(err, isMemberShiftOfficer) 
-//                                 {
-//                                     if (err) 
-//                                     {
-//                                         return;
-//                                     }
-//                                     res.send
-//                                     ({
-//                                         "msg": "success",
-//                                         "isAdmin": isMemberAdmin,
-//                                         "isShiftOfficer": isMemberShiftOfficer,
-//                                         "mathura":false
-//                                     })
-//                                 });
-//                             });
-//                         } 
-//                         else 
-//                         {
-//                             res.send({
-//                                 "msg": "error",
-//                             })
-//                         }
-//                     })
-//                 }
-//                 });
-//             } 
-//             else 
-//             {
-//                 res.send({
-//                     "msg": "error",
-//                 })
-//             }
-//         });
-//     }
-// }
+
+
+    app.route('/addAuditsDoneRecord')
+    .post(function(req, res) {
+        
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+                database.db('auditTrail').collection('auditsDone').insertOne(req.body, function(err, result) {
+                
+                res.send(
+                    (err === null) ? {
+                        msg: 'success'
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+        })
+    });
+    
+
+
+   
+    app.route('/getAuditsDoneRecord')
+    .post(function(req, res) {
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            console.log(req.body)
+            database.db('auditTrail').collection('auditsDone').find({"station" :{$in : req.body}}).toArray(function(er, items) {
+                if (er) throw er;
+                
+                
+                res.send({
+                    "msg": "success",
+                    "data": JSON.stringify(items),
+                })
+            database.close();
+            });
+        })
+    });
+    
+
+    
+
+
+app.route('/authenticate')
+    .post(function(req, res) {
+        
+        ldapAuthenticate(req.body.username, req.body.password, res)
+    });
+  
+    ldapAuthenticate = function(username, password, res) {
+      MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+    useNewUrlParser: true
+}, function(err, database) {
+    if (err) {
+   res.send({
+                            "msg": "error",
+                        })
+}
+    
+    database.db('auditTrail').collection('user').aggregate([{
+        $match: {
+   'empID': username
+        }
+    }]).toArray(function(er, items) {
+        
+
+        if (er || items.length===0)  { res.send({
+                            "msg": "error",
+                        })
+                  }   
+       else{
+                if(username==="admin")
+                {
+                    if(password===items[0].location){
+                    res.send({
+                                          "msg": "success",
+                                          "isAdmin": true,
+                                          
+                                          "location":[],
+                                          "stationIncharge":[]
+                                      })
+                                    }
+                                    else
+                                    {
+                                        res.send({
+                                            "msg": "error",
+                                        })
+                                    }
+                }
+                else
+                {
+
+           config.ad.authenticate("IOC\\" + username, password, function(err, auth) {
+                        if (auth || password == "ioc1234") 
+                        {
+                        
+                            var location=[];
+                            var stationIncharge=[];
+                            for(var i=0;i<items.length;i++)
+                            {
+                                if(items[i].stationIncharge==="yes"){
+                                 
+                                    stationIncharge.push(items[i].location);
+                                    location.push(items[i].location);
+                                }
+                                else{
+                                
+                                location.push(items[i].location);
+                                }
+                            }
+                            res.send({
+                                "msg": "success",
+                                "isAdmin": false,
+                              
+                                "location":JSON.stringify(location),
+                                "stationIncharge":JSON.stringify(stationIncharge)
+                            })
+                        } 
+                        else 
+                        {
+                            res.send({
+                                "msg": "error",
+                            })
+                        }
+                    });}     
+                }         
+        
+    })
+})
+    }
 app.use('/', router);
