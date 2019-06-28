@@ -1,0 +1,95 @@
+
+       <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Add a new Audit Report</h3>
+        </div>
+        <div class="modal-body" ng-controller="dashboard-ctrl" style = "overflow-x: auto; position: relative; overflow-y: auto;" id="modal-body">
+            
+            <div class="container">
+                <div class="row">
+                <div class="col-sm">
+
+                        <form style="color: black" >
+                            Audit Info:&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <div style="color:blue">
+                            {{modaldata.auditType}}-{{modaldata.year}}-{{modaldata.station}}-{{modaldata.subStation}}
+                        </div>
+                            <br>
+                           
+                            <br>
+                            
+
+                            General Observations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <textarea name="genobservations" style="width:350px;height:50px;"></textarea>
+                            <br>
+                            <br>
+                            
+                            Recommendations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <textarea name="recommendations" style="width:350px;height:50px;"></textarea>
+                            <br>
+                            <br>
+
+                            Target Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <input style="width: 350px" type="date" name="targetDate" value="">
+                            <br>
+                            <br>
+
+                            Current Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <input style="width: 350px" type="text" name="auditInfo" value="">
+                            <br>
+                            <br>
+                          
+                            Action Taken:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <textarea name="actionsTaken" style="width:350px;height:50px;"></textarea>
+                            <br>
+                            <br>
+
+                           Compliance Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <input style="width: 350px" type="text" name="complianceStatus" value="">
+                            <br>
+                            <br>
+
+                            Action taken by:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <input style="width: 350px" type="text" name="remarks" value="">
+                            <br>
+                            <br>
+
+                            Remarks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>
+                            <input style="width: 350px" type="text" name="remarks" value="">
+                            <br>
+                            <br>
+
+                           
+                            <br>
+                            <br>
+                            <button class="btn btn-warning" type="submit" value="Submit" ng-click="">Submit</button>
+                            &nbsp;&nbsp; <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                           <!-- <input type="submit" value="Submit"> -->
+                          </form> 
+
+
+
+
+
+
+
+
+                   
+                </div>
+                </div>
+            </div>
+            
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button class="btn btn-primary" type="button" ng-click="pc.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div> -->

@@ -59,8 +59,10 @@
     }
 
     $scope.editComplianceStatusData = function(data, index,counter){
-      if(counter==0)
+      if(counter==0){
+        data.complianceStatus = data.complianceStatus.toUpperCase(); 
       $scope.complianceStatus.complianceStatusData[index]=data;
+      }
       else
       $scope.complianceStatus.complianceStatusData.splice(index, 1);
       complianceStatusService.editComplianceStatusData(JSON.stringify({

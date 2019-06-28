@@ -66,8 +66,10 @@
     
 
     $scope.editStationData = function(data, index,counter){
-      if(counter==0)
+      if(counter==0){
+        data.station = data.station.toUpperCase();
       $scope.station.stationData[index]=data;
+      }
       else
       $scope.station.stationData.splice(index, 1);
       stationService.editStationData(JSON.stringify({

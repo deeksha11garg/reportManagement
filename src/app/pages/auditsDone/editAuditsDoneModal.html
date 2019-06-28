@@ -23,13 +23,13 @@
                             <br>
 
                             Station:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <select  style="width: 150px" name="station"  ng-options="station.station for station in station" ng-model="stationSelected" required>
+                            <select  style="width: 150px" name="station"  ng-options="station for station in stationIncharge" ng-model="stationSelected" required>
                             <option value=""  hidden /></select> 
                             <br>
                             <br>
 
                             Sub-Station:&nbsp;
-                            <select  style="width: 150px" name="subStation" ng-options="subStation.subStation for subStation in subStation" ng-model="subStationSelected" required>
+                            <select  style="width: 150px" name="subStation" ng-options="subStations.subStation for subStations in subStations" ng-model="subStationSelected" required>
                                     <option value="" hidden /></select> 
                             <br>
                             <br>

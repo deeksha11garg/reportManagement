@@ -82,8 +82,10 @@
     
 
     $scope.editSubStationData = function(data, index,counter){
-      if(counter==0)
+      if(counter==0){
+        data.subStation = data.subStation.toUpperCase();
       $scope.subStation.subStationData[index]=data;
+      }
       else
       $scope.subStation.subStationData.splice(index, 1);
       subStationService.editSubStationData(JSON.stringify({

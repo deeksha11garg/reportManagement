@@ -26,7 +26,7 @@
 
           
          
-               <table  style="width: 950px" st-table="auditsDone" st-safe-src="rowCollection" style="margin : 0px;color: black" class="table">
+               <table  style="width: 1100px" st-table="auditsDone" st-safe-src="rowCollection" style="margin : 0px;color: black" class="table">
                   <thead>
                      
                       <tr>
@@ -35,10 +35,10 @@
                           <th style="width: 100px">Year</th>
                           <th  style="width: 150px">Station</th>
                           <th  style="width: 150px">Sub-Station</th>
-                         <th style="width: 150px">Start Date</th>
-                          <th style="width: 150px">End Date</th>
+                         <th style="width: 100px">Start Date</th>
+                          <th style="width: 100px">End Date</th>
                         
-                      <th ng-hide = "audits.auditsDoneData &&  auditsDone.auditsDoneData.length == 0">Actions</th>
+                      <th style="width: 180px" ng-hide = "audits.auditsDoneData &&  auditsDone.auditsDoneData.length == 0">Actions</th>
                        
                         
                              </tr>
@@ -54,6 +54,7 @@
                                       type="search"/></th>
                                   <th></th>
                                   <th></th>
+                                  <th></th>
                             </tr>
                    
                 </thead>
@@ -65,22 +66,22 @@
                             </span>
                           </td>
                       <td>    
-                        <span editable-text="data.auditType" e-name="auditType" e-form="rowform" e-required>
+                        <span text="data.auditType" e-name="auditType" e-form="rowform" e-required>
                         {{ data.auditType || '-' }}
                         </span>
                       </td>
                       <td>    
-                        <span editable-text="data.year" e-name="year" e-form="rowform" >
+                        <span text="data.year" e-name="year" e-form="rowform" >
                         {{ data.year || '-' }}
                         </span>
                       </td>
                       <td>    
-                        <span editable-text="data.station" e-name="station" e-form="rowform" >
+                        <span text="data.station" e-name="station" e-form="rowform" >
                         {{ data.station || '-' }}
                         </span>
                       </td>
                       <td>    
-                        <span editable-text="data.subStation" e-name="subStation" e-form="rowform" >
+                        <span text="data.subStation" e-name="subStation" e-form="rowform" >
                         {{ data.subStation || '-' }}
                         </span>
                       </td>
@@ -94,6 +95,7 @@
                              {{ data.to |  date : "mediumDate" || '-' }} 
                             </span>
                           </td>
+                          <td>
                       <!-- <td>    
                         <span editable-select="data.stationIncharge" e-name="stationIncharge" e-form="rowform" e-selectpicker e-ng-options="stationIncharge for stationIncharge in stationIncharge">
                         {{ data.stationIncharge || '-' }}
@@ -107,10 +109,10 @@
                           <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-warning editable-table-button btn-xs">
                             Cancel
                           </button>
-                        </form>
-                        <div class="buttons" ng-show="!rowform.$visible && insert">
-                          <button class="btn btn-info editable-table-button btn-xs" ng-click="rowform.$show();">Add</button>
-                         <button class="btn btn-danger editable-table-button btn-xs" ng-click="deletauditsDoneData(data,$index);">Delete</button> -->
+                        </form> -->
+                         <div class="buttons" >
+                          <button class="btn btn-info editable-table-button btn-xs" ng-click="opendetails(data, $index)">Details</button>
+                         <button class="btn btn-danger editable-table-button btn-xs" ng-click="openedit(data)">Add</button> 
                         </div>
                       </td> 
                     </tr>

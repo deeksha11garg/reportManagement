@@ -1,0 +1,78 @@
+
+       <div  class="modal-header">
+            <h3 class="modal-title" id="modal-title">Details</h3>
+        </div>
+        <div     class="modal-body" ng-controller="dashboard-ctrl" style = "overflow-x: auto; position: relative; overflow-y: auto;" id="modal-body">
+            
+            <div  class="container">
+                <div class="row">
+                <div  class="col-sm">
+
+                    <table  style="width: 1100px" st-table="entries" st-safe-src="rowCollection" style="margin : 0px;color: black" class="table">
+                        <thead>
+                           
+                            <tr>
+                              
+                                <th  style="width: 150px">Audit Info</th>
+                                <th style="width: 100px">General Observations</th>
+                                <th  style="width: 150px">Recommendations</th>
+                                <th  style="width: 150px">Target Date</th>
+                               <th style="width: 100px">Current Status</th>
+                                <th style="width: 100px">Action taken</th>
+                                <th style="width: 100px">Action Compliance Status</th>
+                                <th style="width: 100px">Action taken by</th>
+                                <th style="width: 100px">Remarks</th>
+                              
+                            <th style="width: 180px" ng-hide = "audits.auditsDoneData &&  auditsDone.auditsDoneData.length == 0">Actions</th>
+                             
+                              
+                                   </tr>
+                                   <!-- <tr>
+                                    <th></th>
+                                    <th><input st-search="auditType" placeholder="audit type " class="input-sm form-control search-input"
+                                      type="search"/></th>
+                                      <th><input st-search="year" placeholder="year " class="input-sm form-control search-input"
+                                        type="search"/></th>
+                                        <th><input st-search="station" placeholder="station " class="input-sm form-control search-input"
+                                          type="search"/></th>
+                                          <th><input st-search="subStation" placeholder="sub-station " class="input-sm form-control search-input"
+                                            type="search"/></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                  </tr> -->
+                         
+                      </thead>
+                      <tbody>
+
+                        <tr>
+                          
+                          <td>
+
+                        <div style="color:blue">
+                          {{detailsmodaldata.auditType}}-{{detailsmodaldata.year}}-{{detailsmodaldata.station}}-{{detailsmodaldata.subStation}}
+                      </div>
+                    </td>
+
+
+
+                    </tr>
+                      </tbody>
+
+
+
+
+
+
+
+                   
+                </div>
+                </div>
+            </div>
+            
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button class="btn btn-primary" type="button" ng-click="pc.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div> -->

@@ -259,7 +259,37 @@ app.route('/editMiscellaneousRecord')
         }, function(err, database) {
             if (err) return
             console.log(req.body)
-            database.db('auditTrail').collection('auditsDone').find({"station" :{$in : req.body}}).toArray(function(er, items) {
+            database.db('auditTrail').collection('entries').aggregate([{
+                $match: {
+
+                }
+            }]).toArray(function(er, items) {
+                if (er) throw er;
+                
+                
+                res.send({
+                    "msg": "success",
+                    "data": JSON.stringify(items),
+                })
+            database.close();
+            });
+        })
+    });
+
+
+    
+    app.route('/getEntriesRecord')
+    .post(function(req, res) {
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            console.log(req.body)
+            database.db('auditTrail').collection('auditsDone').aggregate([{
+                $match: {
+"auditInfo": new ObjectID.createFromHexString(req.body._id.toString())
+                }
+            }]).toArray(function(er, items) {
                 if (er) throw er;
                 
                 

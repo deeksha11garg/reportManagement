@@ -59,8 +59,10 @@
     }
 
     $scope.editAuditTypeData = function(data, index,counter){
-      if(counter==0)
+      if(counter==0){
+        data.auditType = data.auditType.toUpperCase(); 
       $scope.auditType.auditTypeData[index]=data;
+      }
       else
       $scope.auditType.auditTypeData.splice(index, 1);
       auditTypeService.editAuditTypeData(JSON.stringify({

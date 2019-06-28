@@ -90,15 +90,6 @@
 
        
 
-        
-        auditsDoneService.getMiscellaneousData(JSON.stringify({
-          name : "station"
-        })).then(
-          function(data) { 
-            $scope.station = JSON.parse(data.data.data)[0].data;
-          },
-          function(msg) {
-          });
 
           auditsDoneService.getMiscellaneousData(JSON.stringify({
             name : "subStation"
@@ -110,12 +101,12 @@
             });
           for(var i=0;i<=$scope.subStation.length;i++)
             {
-             var station=$scope.stationIncharge.map(function (station) {
-               if($scope.subStation[i].station===station){
+            for(var j=0;j<$scope.station;j++) {
+               if($scope.subStation[i].station===$scope.stationIncharge[j]){
                $scope.subStations.push($scope.substation[i]);
               }
-                return station
-             });
+    
+             };
             }
             auditsDoneService.getMiscellaneousData(JSON.stringify({
               name : "year"

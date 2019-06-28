@@ -41,6 +41,9 @@
       $scope.year.yearData.push({
         year:""
       });
+      $scope.rowCollection.push({
+        year:""
+      });
     }
 
     $scope.getYear= function(){
@@ -59,14 +62,16 @@
     }
 
     $scope.editYearData = function(data, index,counter){
-      if(counter==0)
-      $scope.year.yearData[index]=data;
+      if(counter==0){
+        data.year = data.year.toUpperCase(); 
+      $scope.rowCollection[index]=data;
+      }
       else
       $scope.year.yearData.splice(index, 1);
       yearService.editYearData(JSON.stringify({
           _id: $scope.year.yearID,
           name: $scope.year.yearName,
-          data: $scope.year.yearData,
+          data: $scope.rowCollection,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();
