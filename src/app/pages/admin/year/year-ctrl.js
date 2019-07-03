@@ -37,6 +37,12 @@
 
     }
 
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
     $scope.addNewRecord = function(){
       $scope.year.yearData.push({
         year:""
@@ -67,7 +73,7 @@
       $scope.rowCollection[index]=data;
       }
       else
-      $scope.year.yearData.splice(index, 1);
+      $scope.rowCollection.splice(index, 1);
       yearService.editYearData(JSON.stringify({
           _id: $scope.year.yearID,
           name: $scope.year.yearName,

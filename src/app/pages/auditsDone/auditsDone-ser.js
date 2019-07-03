@@ -5,7 +5,7 @@ angular.module('BlurAdmin.pages.auditsDone').service('auditsDoneService', functi
     this.getauditsDone = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getAuditsDoneRecord',reqJSON,{
+        $http.post('http://localhost:3007/getAuditsDoneRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -26,7 +26,7 @@ angular.module('BlurAdmin.pages.auditsDone').service('auditsDoneService', functi
 
         this.addAuditsDoneData = function(reqJSON){
             var deferred = $q.defer();
-            $http.post('http://localhost:3006/addAuditsDoneRecord',reqJSON,{
+            $http.post('http://localhost:3007/addAuditsDoneRecord',reqJSON,{
                 headers : {
                     'Content-Type' : 'application/json; charset=utf-8'
                 }
@@ -46,7 +46,7 @@ angular.module('BlurAdmin.pages.auditsDone').service('auditsDoneService', functi
         this.getMiscellaneousData = function(reqJSON){
             var deferred = $q.defer();
     
-            $http.post('http://localhost:3006/getMiscellaneousRecord',reqJSON,{
+            $http.post('http://localhost:3007/getMiscellaneousRecord',reqJSON,{
                 headers : {
                     'Content-Type' : 'application/json; charset=utf-8'
                         }

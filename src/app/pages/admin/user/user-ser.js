@@ -4,7 +4,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
     this.getUserData = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getUserRecord',reqJSON,{
+        $http.post('http://localhost:3007/getUserRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -23,7 +23,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
     this.getSubStationData = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getMiscellaneousRecord',reqJSON,{
+        $http.post('http://localhost:3007/getMiscellaneousRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -42,7 +42,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
 
     this.editUserData = function(reqJSON){
         var deferred = $q.defer();
-        $http.post('http://localhost:3006/editUserRecord',reqJSON,{
+        $http.post('http://localhost:3007/editUserRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
             }
@@ -59,7 +59,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
     }
     this.addUserData = function(reqJSON){
         var deferred = $q.defer();
-        $http.post('http://localhost:3006/addUserRecord',reqJSON,{
+        $http.post('http://localhost:3007/addUserRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
             }
@@ -76,7 +76,7 @@ angular.module('BlurAdmin.pages.admin.user').service('userService', function ($h
     } 
     this.deleteUserData = function(reqJSON){
         var deferred = $q.defer();
-        $http.post('http://localhost:3006/deleteUserRecord',reqJSON,{
+        $http.post('http://localhost:3007/deleteUserRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
             }

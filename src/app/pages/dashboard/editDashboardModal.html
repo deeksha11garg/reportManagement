@@ -21,56 +21,57 @@
 
                             General Observations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <textarea name="genobservations" style="width:350px;height:50px;"></textarea>
+                            <textarea name="generalObservations" style="width:350px;height:50px;" ng-model="generalObservationsinput"></textarea>
                             <br>
                             <br>
                             
                             Recommendations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <textarea name="recommendations" style="width:350px;height:50px;"></textarea>
+                            <textarea name="recommendations" style="width:350px;height:50px;" ng-model="recommendationsinput"></textarea>
                             <br>
                             <br>
 
                             Target Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <input style="width: 350px" type="date" name="targetDate" value="">
+                           
+                            <input style="width: 350px" type="text" name="targetDate" value=""  ng-model="targetDateinput">
                             <br>
                             <br>
 
                             Current Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <input style="width: 350px" type="text" name="auditInfo" value="">
+                            <input style="width: 350px" type="text" name="currentStatus" value="" ng-model="currentStatusinput">
                             <br>
                             <br>
                           
                             Action Taken:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <textarea name="actionsTaken" style="width:350px;height:50px;"></textarea>
+                            <textarea name="actionsTaken" style="width:350px;height:50px;" ng-model="actionsTakeninput"></textarea>
                             <br>
                             <br>
 
                            Compliance Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <input style="width: 350px" type="text" name="complianceStatus" value="">
+                            <input style="width: 350px" type="text" name="complianceStatus" value="" ng-model="complianceStatusinput">
                             <br>
                             <br>
 
                             Action taken by:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <input style="width: 350px" type="text" name="remarks" value="">
+                            <input style="width: 350px" type="text" name="actionTakenBy" value="" ng-model="actionTakenByinput">
                             <br>
                             <br>
 
                             Remarks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br>
-                            <input style="width: 350px" type="text" name="remarks" value="">
+                            <input style="width: 350px" type="text" name="remarks" value="" ng-model="remarksinput">
                             <br>
                             <br>
 
                            
                             <br>
                             <br>
-                            <button class="btn btn-warning" type="submit" value="Submit" ng-click="">Submit</button>
+                            <button class="btn btn-warning" type="submit" value="Submit" ng-click="addNewEntries()">Submit</button>
                             &nbsp;&nbsp; <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
                            <!-- <input type="submit" value="Submit"> -->
                           </form> 

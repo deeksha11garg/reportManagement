@@ -4,7 +4,7 @@ angular.module('BlurAdmin.pages.admin.year').service('yearService', function ($h
     this.getYearData = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getMiscellaneousRecord',reqJSON,{
+        $http.post('http://localhost:3007/getMiscellaneousRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -23,7 +23,7 @@ angular.module('BlurAdmin.pages.admin.year').service('yearService', function ($h
 
     this.editYearData = function(reqJSON){
         var deferred = $q.defer();
-        $http.post('http://localhost:3006/editMiscellaneousRecord',reqJSON,{
+        $http.post('http://localhost:3007/editMiscellaneousRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
             }

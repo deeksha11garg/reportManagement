@@ -22,7 +22,9 @@
      
          authservice.authenticate(credentials.user,credentials.password).then(function(data) {
           localStorage.setObject('dataUser', credentials);
-          $state.go('main.dashboard'); 
+
+        
+          $state.go(data.isAdmin?'main.admin':'main.dashboard'); 
         }, function() { 
           $state.go('404');
         });

@@ -37,7 +37,8 @@
       $scope.year=[];
       $scope.auditType=[];
       $scope.rowCollection=[];
-     
+      $scope.subStations=[];
+     $scope.todayDate= new Date().getFullYear() +"-" + ((new Date().getMonth() + 1)<10 ? ("0"+ (new Date().getMonth() + 1)) : (new Date().getMonth() + 1))  + "-" + ((new Date().getDate())<10?("0"+ (new Date().getDate())) :  (new Date().getDate()));
       $scope.getauditsDone();
 
     }
@@ -59,10 +60,10 @@
 
       $scope.addNewAuditsDone = function() {
         auditsDoneService.addAuditsDoneData(JSON.stringify({
-          empID:localStorage.getItem("username"),
+          empID:Number(localStorage.getItem("username")),
           auditType:$scope.auditTypeSelected.auditType,
           year:$scope.yearSelected.year,
-          station:$scope.stationSelected.station,
+          station:$scope.stationSelected,
           subStation:$scope.subStationSelected.subStation,
           from:$scope.fromSelected,
           to: $scope.toSelected,
@@ -75,6 +76,12 @@
         }) 
     };
     
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
     $scope.cancel = function() {
         $scope.$modalInstance.dismiss('cancel');
     };
@@ -82,11 +89,12 @@
 
 
     $scope.getauditsDone= function(){
-     $scope.stationIncharhge= JSON.parse(localStorage.getItem("stationIncharge"));
-      auditsDoneService.getauditsDone($scope.stationIncharhge).then(
+     $scope.stationIncharge= JSON.parse(localStorage.getItem("stationIncharge"));
+      auditsDoneService.getauditsDone($scope.stationIncharge).then(
         function(data) { 
           $scope.auditsDone= JSON.parse(data.data.data);
           $scope.rowCollection = JSON.parse(data.data.data);
+          
 
        
 
@@ -94,36 +102,44 @@
           auditsDoneService.getMiscellaneousData(JSON.stringify({
             name : "subStation"
           })).then(
-            function(data) { 
-              $scope.subStation = JSON.parse(data.data.data)[0].data;
-            },
-            function(msg) {
-            });
-          for(var i=0;i<=$scope.subStation.length;i++)
-            {
-            for(var j=0;j<$scope.station;j++) {
-               if($scope.subStation[i].station===$scope.stationIncharge[j]){
-               $scope.subStations.push($scope.substation[i]);
-              }
-    
-             };
-            }
-            auditsDoneService.getMiscellaneousData(JSON.stringify({
-              name : "year"
-            })).then(
-              function(data) { 
-                $scope.year = JSON.parse(data.data.data)[0].data;
-              },
-              function(msg) {
-              });
+            function(substationdata) { 
+              $scope.subStation = JSON.parse(substationdata.data.data)[0].data;
+
+
               auditsDoneService.getMiscellaneousData(JSON.stringify({
-                name : "auditType"
+                name : "year"
               })).then(
                 function(data) { 
-                  $scope.auditType = JSON.parse(data.data.data)[0].data;
+                  $scope.year = JSON.parse(data.data.data)[0].data;
+
+                  auditsDoneService.getMiscellaneousData(JSON.stringify({
+                    name : "auditType"
+                  })).then(
+                    function(data) { 
+                      $scope.auditType = JSON.parse(data.data.data)[0].data;
+                      for(var i=0;i<$scope.subStation.length;i++)
+                      {
+                      for(var j=0;j<$scope.stationIncharge.length;j++) {
+                         if($scope.subStation[i].station===$scope.stationIncharge[j]){
+                         $scope.subStations.push($scope.subStation[i]);
+                        }
+              
+                       }
+                      }
+                    },
+                    function(msg) {
+                    });
+    
+                  
+
                 },
                 function(msg) {
                 });
+            },
+            function(msg) {
+            });
+        
+         
 
         },
         function(msg) {

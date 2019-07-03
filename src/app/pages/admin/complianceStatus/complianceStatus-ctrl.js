@@ -37,8 +37,18 @@
 
     }
 
+    
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
     $scope.addNewRecord = function(){
       $scope.complianceStatus.complianceStatusData.push({
+        complianceStatus:""
+      });
+      $scope.rowCollection.push({
         complianceStatus:""
       });
     }
@@ -61,14 +71,14 @@
     $scope.editComplianceStatusData = function(data, index,counter){
       if(counter==0){
         data.complianceStatus = data.complianceStatus.toUpperCase(); 
-      $scope.complianceStatus.complianceStatusData[index]=data;
+        $scope.rowCollection[index]=data;
       }
       else
-      $scope.complianceStatus.complianceStatusData.splice(index, 1);
+      $scope.rowCollection.splice(index, 1);
       complianceStatusService.editComplianceStatusData(JSON.stringify({
           _id: $scope.complianceStatus.complianceStatusID,
           name: $scope.complianceStatus.complianceStatusName,
-          data: $scope.complianceStatus.complianceStatusData,
+          data: $scope.rowCollection,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();

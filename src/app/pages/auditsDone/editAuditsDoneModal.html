@@ -1,4 +1,4 @@
-
+<!-- <div  class="modal hide" data-backdrop="static" data-keyboard="false"> -->
        <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Edit Audits Done</h3>
         </div>
@@ -23,24 +23,24 @@
                             <br>
 
                             Station:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <select  style="width: 150px" name="station"  ng-options="station for station in stationIncharge" ng-model="stationSelected" required>
+                            <select  style="width: 150px" name="station"  ng-options="stationIncharge for stationIncharge in stationIncharge" value="stationIncharge" ng-model="stationSelected" required>
                             <option value=""  hidden /></select> 
                             <br>
                             <br>
 
                             Sub-Station:&nbsp;
-                            <select  style="width: 150px" name="subStation" ng-options="subStations.subStation for subStations in subStations" ng-model="subStationSelected" required>
+                            <select  style="width: 150px" name="subStation" ng-options="subStations.subStation for subStations in subStations" value="subStation" ng-model="subStationSelected" required>
                                     <option value="" hidden /></select> 
                             <br>
                             <br>
 
                             From:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input  type="date" name="from" ng-model="fromSelected" required>
+                            <input  type="date" name="from"   max={{todayDate}} ng-model="fromSelected" required>
                             <br>
                             <br>
 
                             To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input  type="date" name="to" ng-model="toSelected" required>
+                            <input  type="date" name="to"   max={{todayDate}} ng-model="toSelected" required>
                             <br>
                             <br>
                             <br>
@@ -67,3 +67,4 @@
           <button class="btn btn-primary" type="button" ng-click="pc.ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div> -->
+    <!-- </div> -->

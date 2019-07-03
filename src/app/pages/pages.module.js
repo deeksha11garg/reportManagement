@@ -8,15 +8,20 @@
   angular.module('BlurAdmin.pages', [
     'ui.router',
     'BlurAdmin.pages.dashboard',
+    'BlurAdmin.pages.auditsDone',
+    'BlurAdmin.pages.viewData',
+    'BlurAdmin.pages.reports',
+    'BlurAdmin.pages.admin',
+    'BlurAdmin.pages.editData',
     'BlurAdmin.pages.authSignIn',
     'BlurAdmin.pages.main',
     'BlurAdmin.pages.config',
-    'BlurAdmin.pages.services',
-    'BlurAdmin.pages.viewData',
-    'BlurAdmin.pages.editData',
-    'BlurAdmin.pages.reports',
-    'BlurAdmin.pages.auditsDone',
-    'BlurAdmin.pages.admin'
+    'BlurAdmin.pages.services'
+    
+    
+    
+    
+    
 
    
     

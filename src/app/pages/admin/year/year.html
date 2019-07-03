@@ -48,8 +48,8 @@
                           <tr ng-repeat="data in year.yearData track by $index" class="editable-row">
                               <td>    
                                   <span>
-                                    {{currentPage}}
-                                   {{ $index + 1+ (7 * currentPage) || '-' }} 
+                                    
+                                   {{ ((current_page-1)*page_size)+$index+1 || '-' }} 
                                   </span>
                                 </td>
                             <td>    
@@ -59,7 +59,7 @@
                             </td>
                             
                             <td>
-                              <form editable-form name="rowform" onaftersave = " editYearData(data,$index,0)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == data">
+                              <form editable-form name="rowform" onaftersave = " editYearData(data,((current_page-1)*page_size)+$index,0)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == data">
                                 <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
                                   Save
                                 </button>
@@ -69,7 +69,7 @@
                               </form>
                               <div class="buttons" ng-show="!rowform.$visible">
                                 <button class="btn btn-info editable-table-button btn-xs" ng-click="rowform.$show();">Edit</button>
-                                <button class="btn btn-danger editable-table-button btn-xs" ng-click="editYearData(data,$index,1);">Delete</button>
+                                <button class="btn btn-danger editable-table-button btn-xs" ng-click="editYearData(data,((current_page-1)*page_size)+$index,1);">Delete</button>
                               </div>
                             </td>
                           </tr>
@@ -79,7 +79,7 @@
                           <tfoot>
                               <tr>
                                 <td colspan="6" class="text-center">
-                                  <div st-pagination="" st-items-by-page="7" st-displayed-pages="100"></div>
+                                  <div st-pagination="" st-items-by-page="page_size" st-page-change="rembemberCurrentPage(newPage)" st-displayed-pages="100"></div>
                                 </td>
                               </tr>
                               </tfoot>    

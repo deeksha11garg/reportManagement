@@ -38,11 +38,20 @@
     
      
     }
+
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
    
    
    
     $scope.addNewRecord = function(){
       $scope.station.stationData.push({
+        station:""
+      });
+      $scope.rowCollection.push({
         station:""
       });
     }
@@ -68,14 +77,14 @@
     $scope.editStationData = function(data, index,counter){
       if(counter==0){
         data.station = data.station.toUpperCase();
-      $scope.station.stationData[index]=data;
+        $scope.rowCollection[index]=data;
       }
       else
-      $scope.station.stationData.splice(index, 1);
+      $scope.rowCollection.splice(index, 1);
       stationService.editStationData(JSON.stringify({
           _id: $scope.station.stationID,
           name: $scope.station.stationName,
-          data: $scope.station.stationData,
+          data: $scope.rowCollection,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();

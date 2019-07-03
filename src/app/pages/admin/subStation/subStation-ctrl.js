@@ -38,11 +38,22 @@
       $scope.getSubStation();
     }
 
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
     $scope.addNewRecord = function(){
       $scope.subStation.subStationData.push({
         station:"",
         subStation:""
       });
+      $scope.rowCollection.push({
+        station:"",
+        subStation:""
+      });
+      
     }
 
     $scope.getSubStation= function(){
@@ -84,14 +95,15 @@
     $scope.editSubStationData = function(data, index,counter){
       if(counter==0){
         data.subStation = data.subStation.toUpperCase();
-      $scope.subStation.subStationData[index]=data;
+        data.station = data.station.station;
+        $scope.rowCollection[index]=data;
       }
       else
-      $scope.subStation.subStationData.splice(index, 1);
+      $scope.rowCollection.splice(index, 1);
       subStationService.editSubStationData(JSON.stringify({
           _id: $scope.subStation.subStationID,
           name: $scope.subStation.subStationName,
-          data: $scope.subStation.subStationData,
+          data: $scope.rowCollection,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();

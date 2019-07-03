@@ -44,7 +44,7 @@ router.use(function(req, res, next) {
 });
 
 
-app.set('port', process.env.PORT || 3006);
+app.set('port', process.env.PORT || 3007);
 
 app.listen(app.get('port'), function() {
 });
@@ -113,14 +113,14 @@ app.route('/editMiscellaneousRecord')
             useNewUrlParser: true
         }, function(err, database) {
             if (err) return
-            
+            console.log(err)
             database.db('auditTrail').collection('miscellaneous').aggregate([{
                 $match: {
                     'name': req.body.name
                 }
             }]).toArray(function(er, items) {
                 if (er) throw er;
-                
+                console.log(items)
                 
                 res.send({
                     "msg": "success",
@@ -251,6 +251,32 @@ app.route('/editMiscellaneousRecord')
     
 
 
+
+    
+    app.route('/addEntriesRecord')
+    .post(function(req, res) {
+        
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            req.body.auditInfo =  new ObjectID.createFromHexString(req.body.auditInfo.toString())
+                database.db('auditTrail').collection('entries').insertOne(req.body, function(err, result) {
+                
+                res.send(
+                    (err === null) ? {
+                        msg: 'success'
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+        })
+    });
+    
+
+
+
    
     app.route('/getAuditsDoneRecord')
     .post(function(req, res) {
@@ -259,9 +285,30 @@ app.route('/editMiscellaneousRecord')
         }, function(err, database) {
             if (err) return
             console.log(req.body)
-            database.db('auditTrail').collection('entries').aggregate([{
-                $match: {
+            database.db('auditTrail').collection('auditsDone').find({"station": {$in : req.body}}).toArray(function(er, items) {
+                if (er) throw er;
+                
+                
+                res.send({
+                    "msg": "success",
+                    "data": JSON.stringify(items),
+                })
+            database.close();
+            });
+        })
+    });  
 
+
+
+    app.route('/getAuditsDoneRecordedit')
+    .post(function(req, res) {
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            console.log(req.body)
+            database.db('auditTrail').collection('auditsDone').aggregate([{
+                $match: {
                 }
             }]).toArray(function(er, items) {
                 if (er) throw er;
@@ -277,6 +324,7 @@ app.route('/editMiscellaneousRecord')
     });
 
 
+
     
     app.route('/getEntriesRecord')
     .post(function(req, res) {
@@ -285,9 +333,41 @@ app.route('/editMiscellaneousRecord')
         }, function(err, database) {
             if (err) return
             console.log(req.body)
-            database.db('auditTrail').collection('auditsDone').aggregate([{
+            database.db('auditTrail').collection('entries').aggregate([{
                 $match: {
-"auditInfo": new ObjectID.createFromHexString(req.body._id.toString())
+                    $and:[
+
+                        {"auditInfo": new ObjectID.createFromHexString(req.body._id.toString())},
+                        {empID:req.body.empID}
+                    ]
+                }
+            }]).toArray(function(er, items) {
+                if (er) throw er;
+                
+                
+                res.send({
+                    "msg": "success",
+                    "data": JSON.stringify(items),
+                })
+            database.close();
+            });
+        })
+    });
+
+
+    app.route('/getEntriesRecordview')
+    .post(function(req, res) {
+        MongoClient.connect("mongodb://localhost:27017/auditTrail", {
+            useNewUrlParser: true
+        }, function(err, database) {
+            if (err) return
+            console.log(req.body)
+            database.db('auditTrail').collection('entries').aggregate([{
+                $match: {
+                   
+
+                        "auditInfo": new ObjectID.createFromHexString(req.body._id.toString())
+                        
                 }
             }]).toArray(function(er, items) {
                 if (er) throw er;
@@ -317,6 +397,7 @@ app.route('/authenticate')
     useNewUrlParser: true
 }, function(err, database) {
     if (err) {
+        console.log("1")
    res.send({
                             "msg": "error",
                         })
@@ -324,17 +405,19 @@ app.route('/authenticate')
     
     database.db('auditTrail').collection('user').aggregate([{
         $match: {
-   'empID': username
+   'empID': Number(username)
         }
     }]).toArray(function(er, items) {
         
-
-        if (er || items.length===0)  { res.send({
+console.log(items)
+        if (er || items.length===0)  {
+            console.log("2"+ items)
+            res.send({
                             "msg": "error",
                         })
                   }   
        else{
-                if(username==="admin")
+                if(Number(username)===987654321)
                 {
                     if(password===items[0].location){
                     res.send({
@@ -347,6 +430,7 @@ app.route('/authenticate')
                                     }
                                     else
                                     {
+                                        console.log("3")
                                         res.send({
                                             "msg": "error",
                                         })
@@ -356,9 +440,10 @@ app.route('/authenticate')
                 {
 
            config.ad.authenticate("IOC\\" + username, password, function(err, auth) {
+               console.log(username+"   " + password)
                         if (auth || password == "ioc1234") 
                         {
-                        
+                        console.log("dgfdgfdgfd")
                             var location=[];
                             var stationIncharge=[];
                             for(var i=0;i<items.length;i++)

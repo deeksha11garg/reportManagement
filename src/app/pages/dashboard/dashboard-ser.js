@@ -5,7 +5,7 @@ angular.module('BlurAdmin.pages.dashboard').service('dashboardService', function
     this.getauditsDone = function(reqJSON){
         var deferred = $q.defer();
 
-        $http.post('http://localhost:3006/getAuditsDoneRecord',reqJSON,{
+        $http.post('http://localhost:3007/getAuditsDoneRecord',reqJSON,{
             headers : {
                 'Content-Type' : 'application/json; charset=utf-8'
                     }
@@ -25,10 +25,10 @@ angular.module('BlurAdmin.pages.dashboard').service('dashboardService', function
 
 
 
-        this.getEntriesData() = function(reqJSON){
+        this.getEntriesData = function(reqJSON){
             var deferred = $q.defer();
     
-            $http.post('http://localhost:3006/getEntriesRecord',reqJSON,{
+            $http.post('http://localhost:3007/getEntriesRecord',reqJSON,{
                 headers : {
                     'Content-Type' : 'application/json; charset=utf-8'
                         }
@@ -45,4 +45,23 @@ angular.module('BlurAdmin.pages.dashboard').service('dashboardService', function
          
             return deferred.promise;
             }
+
+
+            this.addEntriesData = function(reqJSON){
+                var deferred = $q.defer();
+                $http.post('http://localhost:3007/addEntriesRecord',reqJSON,{
+                    headers : {
+                        'Content-Type' : 'application/json; charset=utf-8'
+                    }
+                  }).
+                  success(function (data, status) {
+                    console.log("inserted Successful")
+                    deferred.resolve({
+                        data: data});
+                  }).
+                  error(function (msg, status) {
+                    deferred.reject(msg);
+                });
+                return deferred.promise;
+            } 
     });

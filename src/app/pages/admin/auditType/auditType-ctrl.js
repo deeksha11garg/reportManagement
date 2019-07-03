@@ -37,8 +37,18 @@
 
     }
 
+    
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
     $scope.addNewRecord = function(){
       $scope.auditType.auditTypeData.push({
+        auditType:""
+      });
+      $scope.rowCollection.push({
         auditType:""
       });
     }
@@ -61,14 +71,14 @@
     $scope.editAuditTypeData = function(data, index,counter){
       if(counter==0){
         data.auditType = data.auditType.toUpperCase(); 
-      $scope.auditType.auditTypeData[index]=data;
+        $scope.rowCollection[index]=data;
       }
       else
-      $scope.auditType.auditTypeData.splice(index, 1);
+      $scope.rowCollection.splice(index, 1);
       auditTypeService.editAuditTypeData(JSON.stringify({
           _id: $scope.auditType.auditTypeID,
           name: $scope.auditType.auditTypeName,
-          data: $scope.auditType.auditTypeData,
+          data: $scope.rowCollection,
         })).then(function(){
          // toasterService.openSucessToast("Record has been successfully inserted/updated!");
           $state.reload();

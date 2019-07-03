@@ -38,6 +38,12 @@
 
     }
    
+    $scope.page_size = 7
+    $scope.current_page = 1
+$scope.rembemberCurrentPage = function(p) {
+  $scope.current_page = p
+}
+
    
    
     $scope.addNewRecord = function(){
@@ -47,6 +53,12 @@
         stationIncharge:"no",
         counter:0
         
+      });
+      $scope.rowCollection.push({
+        location:"",
+        empID:"",
+        stationIncharge:"no",
+        counter:0
       });
     }
 
@@ -58,7 +70,14 @@
         function(data) { 
           $scope.user= JSON.parse(data.data.data);
           $scope.rowCollection = JSON.parse(data.data.data);
-
+          for(var i=0;i<$scope.user.length;i++)
+          {
+             if($scope.user[i].empID===987654321)
+             {
+             $scope.user.splice(i, 1);
+             $scope.rowCollection.splice(i, 1);
+             }
+          }
 
           userService.getSubStationData(JSON.stringify({
             name : "station"
@@ -81,8 +100,8 @@
      if(data.counter===0)
      {data.counter=1;
       userService.addUserData(JSON.stringify({
-        empID: data.empID,
-        location: data.location,
+        empID: Number(data.empID),
+        location: data.location.station,
         stationIncharge: data.stationIncharge,
         counter:data.counter
       })).then(function(){
@@ -97,8 +116,8 @@
      {
       userService.editUserData(JSON.stringify({
           _id: data._id,
-          empID: data.empID,
-          location: data.location,
+          empID: Number(data.empID),
+          location: data.location.station,
           stationIncharge: data.stationIncharge,
           counter:data.counter
         })).then(function(){
@@ -117,7 +136,7 @@
          userService.deleteUserData(JSON.stringify({
            _id: data._id,
            empID: data.empID,
-           location: data.location,
+           location: data.location.station,
            stationIncharge: data.stationIncharge,
            counter:data.counter
          })).then(function(){

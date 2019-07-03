@@ -62,7 +62,7 @@
                     <tr ng-repeat="data in auditsDone track by $index" class="editable-row">
                         <td>    
                             <span>
-                             {{ $index + 1 || '-' }} 
+                             {{ ((current_page-1)*page_size)+$index + 1 || '-' }} 
                             </span>
                           </td>
                       <td>    
@@ -111,7 +111,7 @@
                           </button>
                         </form> -->
                          <div class="buttons" >
-                          <button class="btn btn-info editable-table-button btn-xs" ng-click="opendetails(data, $index)">Details</button>
+                          <button class="btn btn-info editable-table-button btn-xs" ng-click="opendetails(data, ((current_page-1)*page_size)+$index)">Details</button>
                          <button class="btn btn-danger editable-table-button btn-xs" ng-click="openedit(data)">Add</button> 
                         </div>
                       </td> 
@@ -121,7 +121,7 @@
                     <tfoot>
                         <tr>
                           <td colspan="8" class="text-center">
-                            <div st-pagination="" st-items-by-page="7" st-displayed-pages="100"></div>
+                            <div st-pagination="" st-items-by-page="page_size" st-page-change="rembemberCurrentPage(newPage)" st-displayed-pages="100"></div>
                           </td>
                         </tr>
                         </tfoot>        
